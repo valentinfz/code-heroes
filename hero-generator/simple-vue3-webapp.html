@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Superhéroes</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #app {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #4a4a4a;
+            margin-bottom: 20px;
+        }
+        .hero-card {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .hero-name {
+            font-size: 24px;
+            color: #3273dc;
+            margin-bottom: 10px;
+        }
+        .hero-power {
+            font-size: 18px;
+            color: #ff3860;
+            margin-bottom: 10px;
+        }
+        .hero-weakness {
+            font-style: italic;
+            color: #ffdd57;
+        }
+        .hero-image {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            border: 5px solid #3273dc;
+        }
+        button {
+            background-color: #00d1b2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #00c4a7;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>{{ title }}</h1>
+        <div class="hero-card">
+            <div class="hero-image" :style="{ backgroundImage: `url(${heroImage})` }"></div>
+            <div class="hero-name">{{ heroName }}</div>
+            <div class="hero-power">Superpoder: {{ heroPower }}</div>
+            <div class="hero-weakness">Debilidad: {{ heroWeakness }}</div>
+        </div>
+        <button @click="generateHero">Generar Nuevo Superhéroe</button>
+    </div>
+
+    <script>
+        const { createApp, ref } = Vue
+
+        createApp({
+            setup() {
+                const title = ref('Mi Generador de Superhéroes')
+                const heroName = ref('Super Coder')
+                const heroPower = ref('Programación a la Velocidad de la Luz')
+                const heroWeakness = ref('Cafeína Baja')
+                const heroImage = ref('https://api.dicebear.com/6.x/bottts/svg?seed=SuperCoder')
+
+                const generateHero = () => {
+                    const names = ['Capitán Código', 'Wonder Web', 'Git Guardian', 'CSS Crusader', 'JavaScript Jedi', 'Debugger Dynamo', 
+                'API Avenger', 'Node Ninja', 'React Ranger', 'TypeScript Titan']
+                    const powers = ['Depuración Instantánea', 'Control de Versiones Mental', 'Teletransportación de Datos', 'Manipulación de DOM', 
+                    'API Whisperer', 'Super Compilación', 'Manejo de Servidores Remotos', 'Gestión de Estados Asincrónicos', 
+                    'Actualización de Componentes Instantánea', 'Type-Safety Implacable']
+                    const weaknesses = ['Errores de Sintaxis', 'Reuniones Interminables', 'Café Frío', 'Internet Lento', 'Deadlines Imposibles', 
+                    'Inyecciones de Dependencias Incorrectas', 'Frameworks Obsoletos', 'Documentación Ambigua', 'Componentes No Reutilizables', 
+                    'Archivos de Configuración Rotundos']
+
+                    heroName.value = names[Math.floor(Math.random() * names.length)]
+                    heroPower.value = powers[Math.floor(Math.random() * powers.length)]
+                    heroWeakness.value = weaknesses[Math.floor(Math.random() * weaknesses.length)]
+                    heroImage.value = `https://api.dicebear.com/6.x/bottts/svg?seed=${Math.random()}`
+                }
+
+                return {
+                    title,
+                    heroName,
+                    heroPower,
+                    heroWeakness,
+                    heroImage,
+                    generateHero
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
